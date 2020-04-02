@@ -2,7 +2,7 @@
   "name": "template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cfech.github.io/User_Directory/.",
+  "homepage": "https://cfech.github.io/User_Directory/",
   "dependencies": {
     "start": "npm start",
     "@testing-library/jest-dom": "^4.2.4",
