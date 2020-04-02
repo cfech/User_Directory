@@ -1,6 +1,5 @@
 //Imports
 import React from "react";
-import Search from "./components/Search";
 import Header from "./components/Header";
 import TableHead from "./components/table";
 
@@ -11,7 +10,7 @@ function App() {
   return (
     <div>
       <Header />
-      <Search/>
+
       <TableHead/>
     </div>
   );
