@@ -13,7 +13,7 @@ return(
 <div className= "Search row">
 {/* <input type = "text" name = "search" placeholder="Search" id = "inputBox"  value ={this.state.search} onChange={this.handleInputChange}/> */}
 
-<input type = "text" name = "search" placeholder="Search" id = "inputBox" onChange={props.handleInputChange}></input>
+<input type = "text" name = "search" placeholder="Search" id = "inputBox" value={props.search} onChange={props.handleInputChange}></input>
 </div>
 )}
 

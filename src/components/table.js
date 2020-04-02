@@ -1,7 +1,6 @@
 //Imports
 import React from "react";
 import "../styles/table.css"
-import User from "../user.json"
 import API from "./API"
 import Search from "./Search"
 
@@ -10,17 +9,17 @@ class Table extends React.Component {
 
   //States
   state = {
-    User: User,
     sortOrder: "",
     results: [],
     search: ""
   }
 
 
-
+//Handling input in search abr 
   handleInputChange = event => {
 
     if (event.target.name === "search") {
+      console.log("in handle search")
       const searchTerm = event.target.value.toLowercase();
       console.log(searchTerm)
 
@@ -32,9 +31,6 @@ class Table extends React.Component {
       [event.target.name]: event.target.value
     })
   }
-
-
-
 
   //calling api
   componentDidMount() {
