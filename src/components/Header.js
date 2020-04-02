@@ -1,6 +1,8 @@
+//Imports
 import React from "react"; 
 import "../styles/Header.css";
 
+//Header s
 function Header() {
   return (
     <header className="header">
