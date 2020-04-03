@@ -2,7 +2,7 @@
 import React from "react"; 
 import "../styles/Header.css";
 
-//Header s
+//Header
 function Header() {
   return (
     <header className="header">
@@ -12,4 +12,5 @@ function Header() {
   );
 }
 
+//Exporting header component
 export default Header;

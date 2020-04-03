@@ -14,38 +14,25 @@ class Table extends React.Component {
     search: ""
   }
 
-  //Handling input in search abr 
-  handleInputChange = event => {
-
-    if (event.target.name === "search") {
-      console.log(event.target.name)
-      console.log(event.target.value)
-      const searchTerm = event.target.value.toLowerCase();
-      console.log(searchTerm)
-
-      const newList = this.state.results.filter(item => {
-        
-        return item.name.first.toLowerCase().includes(searchTerm)
-
-
-      })
-
-      console.log(newList)
-
-      this.setState({
-        results: newList
-      })
-    }
-
-  }
-
   //calling api
   componentDidMount() {
     API.ApiSearch()
       .then(res => {
         this.setState({ results: res.data.results })
         console.log(this.state.results)
+      }).catch(err => console.log(err))
+  }
+
+
+  //Handling input in search bar 
+  handleInputChange = event => {
+
+    if (event.target.name === "search") {
+      const searchTerm = event.target.value.toLowerCase();
+      this.setState({
+        search: searchTerm
       })
+    }
   }
 
   //Sort by first name
@@ -57,7 +44,6 @@ class Table extends React.Component {
       if (a.name.first > b.name.first) {
         return 1
       }
-
       return 0;
     });
 
@@ -67,7 +53,6 @@ class Table extends React.Component {
     } else {
       this.setState({ sortOrder: "DESC" });
     }
-    console.log(sortedEmployees)
     this.setState({ results: sortedEmployees })
   }
 
@@ -80,50 +65,23 @@ class Table extends React.Component {
       if (a.name.last > b.name.last) {
         return 1
       }
-
       return 0;
     });
-
     if (this.state.sortOrder === "DESC") {
       sortedEmployees.reverse();
       this.setState({ sortOrder: "ASC" });
     } else {
       this.setState({ sortOrder: "DESC" });
     }
-    console.log(sortedEmployees)
     this.setState({ results: sortedEmployees })
   }
-
-  // sortByAge = () => {
-  //   const sortedEmployees = this.state.results.sort((a, b) => {
-  //     if (b.name.dob.date > a.name.dob.date) {
-  //       return -1
-  //     }
-  //     if (a.name.dob.date > b.name.dob.date) {
-  //       return 1
-  //     }
-
-  //     return 0;
-  //   });
-
-  //   if (this.state.sortOrder === "DESC") {
-  //     sortedEmployees.reverse();
-  //     this.setState({ sortOrder: "ASC" });
-  //   } else {
-  //     this.setState({ sortOrder: "DESC" });
-  //   }
-  //   console.log(sortedEmployees)
-  //   this.setState({ results: sortedEmployees })
-  // }
-
-
 
   //Render items on the page
   render() {
     return (
       <div>
         <Search handleInputChange={this.handleInputChange}
-          state={this.state.search} />
+          search={this.state.search} />
 
         <div className="row tableHeadDiv">
           <table>
@@ -134,28 +92,25 @@ class Table extends React.Component {
                 <th>L-Name <span className="downArrow" onClick={this.sortByLName}></span></th>
                 <th>Phone</th>
                 <th>Email</th>
-                {/* <th>DOB <span className="downArrow" onClick={this.sortByAge}></span></th> */}
                 <th>DOB </th>
               </tr>
             </thead>
 
-
-            {this.state.results && this.state.results.map(item =>
-              <tbody >
-                <tr key={item.id.value}>
-                  <td ><img src={item.picture.thumbnail} alt="thumbnail" /></td>
-                  <td > {item.name.first} </td>
-                  <td > {item.name.last} </td>
-                  <td >{item.phone} </td>
-                  <td >{item.email}</td>
-                  <td >{item.dob.date.split("T")[0]}</td>
-                </tr>
-              </tbody>
+            { //Mapping through the results and showing those to be displayed, all if no search term, only those wo include the search if there is
+            this.state.results && this.state.results.map(item => 
+              item.name.first.toLowerCase().includes(this.state.search) ?
+              <tbody key={item.login.uuid}>
+              <tr>
+                <td ><img src={item.picture.thumbnail} alt="thumbnail" /></td>
+                <td > {item.name.first} </td>
+                <td > {item.name.last} </td>
+                <td >{item.phone} </td>
+                <td >{item.email}</td>
+                <td >{item.dob.date.split("T")[0]}</td>
+              </tr>
+            </tbody> : null
             )}
-
           </table>
-
-
         </div>
       </div>
     )
