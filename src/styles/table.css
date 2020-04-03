@@ -5,14 +5,12 @@ table {
     border-width: 1px;
     margin: auto;
     margin-top: 30px;
-    max-width: 1150px;
+    /* max-width: 1150px; */
     overflow-x: auto;
+    width: 80%;
+    text-align: center;
 }
 
-td, th {
-    padding: 0px 40px 0px 40px;
-    /* padding: auto; */
-}
 
 tbody:nth-child(even) {
     background-color: #f2f2f2;
