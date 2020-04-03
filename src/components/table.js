@@ -14,22 +14,29 @@ class Table extends React.Component {
     search: ""
   }
 
-
-//Handling input in search abr 
+  //Handling input in search abr 
   handleInputChange = event => {
 
     if (event.target.name === "search") {
-      console.log("in handle search")
-      const searchTerm = event.target.value.toLowercase();
+      console.log(event.target.name)
+      console.log(event.target.value)
+      const searchTerm = event.target.value.toLowerCase();
       console.log(searchTerm)
 
-      const newList = this.state.results.filter(item => item.toLowercase().includes(searchTerm))
+      const newList = this.state.results.filter(item => {
+        
+        return item.name.first.toLowerCase().includes(searchTerm)
+
+
+      })
 
       console.log(newList)
+
+      this.setState({
+        results: newList
+      })
     }
-    this.state({
-      [event.target.name]: event.target.value
-    })
+
   }
 
   //calling api
@@ -115,7 +122,8 @@ class Table extends React.Component {
   render() {
     return (
       <div>
-        <Search handleInputChange={this.handleInputChange}/>
+        <Search handleInputChange={this.handleInputChange}
+          state={this.state.search} />
 
         <div className="row tableHeadDiv">
           <table>
@@ -140,7 +148,7 @@ class Table extends React.Component {
                   <td > {item.name.last} </td>
                   <td >{item.phone} </td>
                   <td >{item.email}</td>
-                  <td >{item.dob.date}</td>
+                  <td >{item.dob.date.split("T")[0]}</td>
                 </tr>
               </tbody>
             )}
